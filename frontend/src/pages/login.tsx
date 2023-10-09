@@ -1,45 +1,67 @@
-import Header from "@/components/header"
+import FormWrapper from '@/components/forms/FormWrapper';
+import Input from '@/components/forms/Input';
+import Header from '@/components/header';
+import { useLoginUser } from '@/hooks/use-login-user';
+import useUserStore from '@/store/user-store';
+import Link from 'next/link';
 
-export default function Login(){
-    return (
-      <div>
-        <Header/>
-        <div className="flex">
-      <div className="flex items-center pl-20 w-3/6">
-        <div className="w-full">
-          <h2 className="text-3xl font-semibold mb-4">Sign In</h2>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-slate-500 font-medium mb-2">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="" className="w-96 h-12 px-4 bg-offwhite-light py-2 rounded-lg focus:ring focus:ring-blue-200" required/>
+export type UserLoginPayload = {
+  email: string;
+  password: string;
+};
+
+export type UserLoginResponse = {
+  _id: string;
+  name: string;
+  token: string;
+};
+
+export default function Login() {
+  const { mutate: loginUser, isLoading, isError } = useLoginUser();
+  const setLoginDetail = useUserStore((state) => state.setLoginDetail);
+
+  const submitHandler = (data: UserLoginPayload) => {
+    loginUser(data, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    });
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="flex">
+        <div className="pl-20 pr-28 pt-8 w-1/2">
+          <div className="w-full">
+            <h2 className="text-2xl font-bold mb-6 text-primary-dark">
+              Sign In
+            </h2>
+
+            <FormWrapper
+              showLoader={false}
+              className="space-y-4"
+              onSubmit={submitHandler}
+            >
+              <Input type="email" name="email" label="Email" />
+              <Input type="password" name="password" label="Password" />
+            </FormWrapper>
+            <p className="mt-2 text-slate-500 text-center">
+              Don&apos;t have an account?{' '}
+              <Link className="text-primary" href="/register">
+                Sign Up
+              </Link>
+            </p>
           </div>
-          <div  className="mb-6">
-            <label htmlFor="password" className="block text-slate-500 font-medium mb-2">Password</label>
-            <input type="password" id="password" name="password" placeholder="" className="w-96 h-12 bg-offwhite-light px-4 rounded-lg focus:ring focus:ring-blue-200" required/>
-          </div>
-          <button
-            className="h-12 w-96 bg-primary transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold px-20 rounded mb-2"
-            type="button"
-          > Sign In
-          </button>
-          <p className="text-slate-500 text-sm">Don't have an account? <a href="#" className="text-primary">Sign Up</a></p>
+        </div>
+        <div className="w-1/2">
+          <img
+            src="images/handimage.png"
+            alt="hand"
+            className="rounded-lg pl-14"
+          />
         </div>
       </div>
-      <div className="w-3/6">
-        <img src="images/handimage.png" alt="hand" className="rounded-lg pl-14" />
-      </div>
-
-
-          
-          
-        </div>
-
-     
-      
-      
-      
-      
-
-      </div>
-              
-    );
+    </div>
+  );
 }
