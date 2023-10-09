@@ -1,44 +1,68 @@
-import Header from "@/components/header";
+import FormWrapper from '@/components/forms/FormWrapper';
+import Input from '@/components/forms/Input';
+import Header from '@/components/header';
+import { useRegisterUser } from '@/hooks/use-register-user';
+import useUserStore from '@/store/user-store';
+import Link from 'next/link';
+
+export type UserRegisterPayload = {
+  email: string;
+  password: string;
+};
+
+export type UserRegisterResponse = {
+  _id: string;
+  name: string;
+  token: string;
+};
 
 export default function Register() {
-    return (
-        <main>
-              <Header/> 
-              <div className="flex">
-      <div className="flex items-center pl-20 w-3/6">
-        <div className="w-full">
-          <h2 className="text-3xl font-semibold mb-4">Create an account</h2>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-slate-500 font-medium mb-2">Full Name</label>
-            <input type="email" id="email" name="text" placeholder="" className="w-96 h-12 px-4 bg-offwhite-light py-2 rounded-lg focus:ring focus:ring-blue-200" required/>
+  const { mutate: registerUser, isLoading, isError } = useRegisterUser();
+  const setLoginDetail = useUserStore((state) => state.setLoginDetail);
+
+  const submitHandler = (data: UserRegisterPayload) => {
+    registerUser(data, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    });
+  };
+
+  return (
+    <main>
+      <Header />
+      <div className="flex">
+        <div className="pl-20 pr-28 pt-8 w-1/2">
+          <div className="w-full">
+            <h2 className="text-2xl font-bold mb-6 text-primary-dark">
+              Create an account
+            </h2>
+
+            <FormWrapper
+              showLoader={false}
+              className="space-y-4"
+              onSubmit={submitHandler}
+            >
+              <Input type="text" name="name" label="Full Name" />
+              <Input type="email" name="email" label="Email" />
+              <Input type="password" name="password" label="Password" />
+            </FormWrapper>
+            <p className="mt-2 text-slate-500 text-center">
+              Already have an account?{' '}
+              <Link className="text-primary" href="/login">
+                Sign In
+              </Link>
+            </p>
           </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-slate-500 font-medium mb-2">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="" className="w-96 h-12 px-4 bg-offwhite-light py-2 rounded-lg focus:ring focus:ring-blue-200" required/>
-          </div>
-          <div  className="mb-6">
-            <label htmlFor="password" className="block text-slate-500 font-medium mb-2">Password</label>
-            <input type="password" id="password" name="password" placeholder="" className="w-96 h-12 bg-offwhite-light px-4 rounded-lg focus:ring focus:ring-blue-200" required/>
-          </div>
-          <button
-            className="h-12 w-96 bg-primary transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold px-20 rounded mb-2"
-            type="button"
-          > Create Account
-          </button>
-          <p className="text-slate-500 text-sm">Already have an account? <a href="#" className="text-primary">Log In?</a></p>
+        </div>
+        <div className="w-3/6">
+          <img
+            src="images/handimage.png"
+            alt="hand"
+            className="rounded-lg pl-14"
+          />
         </div>
       </div>
-      <div className="w-3/6">
-        <img src="images/handimage.png" alt="hand" className="rounded-lg pl-14" />
-      </div>
-
-
-          
-          
-        </div>
-  
-  
-
-        </main>
-    );
+    </main>
+  );
 }

@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.36.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.47.0",
     "zustand": "^3.6.9"
   },
   "devDependencies": {
