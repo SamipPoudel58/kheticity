@@ -1,43 +1,45 @@
-export function Login(){
+import Header from "@/components/header"
+
+export default function Login(){
     return (
-        <h1>
-        <div class="relative">
-          <img src="logo.png" alt="logo" class="absolute top-5 left-12 w-20 h-20" />
-        </div>
-      </h1>
-     
-      <div class="relative">
-        <img src="hand.jpg" alt="hand" class="absolute top-10 right-20 w-50 h-50 rounded-lg " />
-      </div>
-      
-      <div class="relative">
-        <div class="absolute top-5 right-20">
-          <span class="mr-4 text-slate-500">Product</span>
-          <span class="mr-4 text-slate-500">Kheti Shikshya</span>
-          <span class="mr-4 text-slate-500">Login</span>
-          <span class="text-slate-500">Register</span>
-        </div>
-      </div>
-      
-      <div class="min-h-screen flex items-center justify-left bg-gray-100">
-        <div class="bg-white p-12 rounded w-80">
-          <h2 class="text-2xl font-semibold mb-4">Sign In</h2>
-          <div class="mb-4">
-            <label for="email" class="block text-slate-500 text-sm font-medium mb-2">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="kheticity56@example.com" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200" required>
+      <div>
+        <Header/>
+        <div className="flex">
+      <div className="flex items-center pl-20 w-3/6">
+        <div className="w-full">
+          <h2 className="text-3xl font-semibold mb-4">Sign In</h2>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-slate-500 font-medium mb-2">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="" className="w-96 h-12 px-4 bg-offwhite-light py-2 rounded-lg focus:ring focus:ring-blue-200" required/>
           </div>
-          <div  class="mb-6">
-            <label for="password" class="block text-slate-500 text-sm font-medium mb-2">Password</label>
-            <input type="password" id="password" name="password" placeholder="********" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200" required>
+          <div  className="mb-6">
+            <label htmlFor="password" className="block text-slate-500 font-medium mb-2">Password</label>
+            <input type="password" id="password" name="password" placeholder="" className="w-96 h-12 bg-offwhite-light px-4 rounded-lg focus:ring focus:ring-blue-200" required/>
           </div>
           <button
-            class="bg-green-500 hover:bg-green-800 text-white font-bold py-1 px-20 rounded focus:outline-none focus:shadow-outline"
+            className="h-12 w-96 bg-primary transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold px-20 rounded mb-2"
             type="button"
           > Sign In
           </button>
-          <p class="text-slate-500 text-sm">Don't have an account? <a href="#" class="text-green-500">Sign Up</a></span>
+          <p className="text-slate-500 text-sm">Don't have an account? <a href="#" className="text-primary">Sign Up</a></p>
         </div>
       </div>
+      <div className="w-3/6">
+        <img src="images/handimage.png" alt="hand" className="rounded-lg pl-14" />
+      </div>
+
+
+          
+          
+        </div>
+
+     
       
-    )
+      
+      
+      
+
+      </div>
+              
+    );
 }
