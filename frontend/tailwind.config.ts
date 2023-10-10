@@ -12,7 +12,7 @@ const config: Config = {
         primary: 'var(--color-primary)',
         'primary-light': 'var(--color-primary-light)',
         'primary-dark': 'var(--color-primary-dark)',
-        secondary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
         offwhite: 'var(--color-offwhite)',
         'offwhite-light': 'var(--color-offwhite-light)',
         'offwhite-dark': 'var(--color-offwhite-dark)',
