@@ -1,12 +1,18 @@
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 
-const MapWithInitialView = () => {
-  const position = { lat: 51.505, lng: -0.09 };
-
+const MapWithInitialView = ({
+  position = { lat: 51.505, lng: -0.09 },
+  dimension = { height: '500px', width: '500px' },
+  zoom = 13,
+}: {
+  position?: { lat: number; lng: number };
+  dimension?: { height: string; width: string };
+  zoom?: number;
+}) => {
   return (
     <MapContainer
-      style={{ height: '400px', width: '400px' }}
+      style={dimension}
       center={position}
       zoom={13}
       scrollWheelZoom={false}

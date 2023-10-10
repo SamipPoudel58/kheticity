@@ -38,6 +38,8 @@ export default function FarmerRegister() {
     lng: number;
   } | null>(null);
 
+  const [displayAddress, setDisplayAddress] = useState('');
+
   const router = useRouter();
 
   const userInfo = useUserStore((state) => state.loginDetail);
@@ -53,7 +55,7 @@ export default function FarmerRegister() {
     console.log(payload);
     registerFarmer(payload, {
       onSuccess: (data) => {
-        router.push('/customer-dashboard');
+        router.push('/farmer-dashboard');
       },
     });
   };
@@ -64,6 +66,12 @@ export default function FarmerRegister() {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
+
+          fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          )
+            .then((res) => res.json())
+            .then((data) => setDisplayAddress(data.display_name));
 
           setLatLngCoordinates({ lat: latitude, lng: longitude });
         },
@@ -76,12 +84,10 @@ export default function FarmerRegister() {
     }
   };
 
-  const DEFAULT_CENTER = [38.907132, -77.036546];
-
   return (
     <main>
       <Header />
-      <div className="max-w-[1200px] mx-auto flex">
+      <div className="max-w-[1200px] mx-auto flex pb-16">
         <div className="pr-28 pt-8 w-1/2">
           <div className="w-full">
             <h2 className="text-2xl font-bold mb-6 text-primary-dark">
@@ -99,24 +105,36 @@ export default function FarmerRegister() {
               {latlngCordinates?.lat ? (
                 <>
                   <p>
-                    <strong>Latitude: </strong>
-                    {latlngCordinates.lat}
-                  </p>
-                  <p>
-                    <strong>Longitude: </strong>
-                    {latlngCordinates.lng}
+                    <strong>Address: </strong>
+                    {displayAddress}
                   </p>
                 </>
               ) : (
-                <button type="button" onClick={getGeoCode}>
-                  Get Geocode
-                </button>
+                <div>
+                  <div className="flex items-center gap-x-2">
+                    <p>Location: </p>
+                    <button
+                      className="border border-slate-300 px-2 py-1 rounded"
+                      type="button"
+                      onClick={getGeoCode}
+                    >
+                      Get Geocode
+                    </button>
+                  </div>
+                </div>
               )}
             </FormWrapper>
           </div>
         </div>
         <div className="w-1/2">
-          <Map />
+          {latlngCordinates && (
+            <Map
+              position={{
+                lat: latlngCordinates.lat,
+                lng: latlngCordinates.lng,
+              }}
+            />
+          )}
         </div>
       </div>
     </main>
