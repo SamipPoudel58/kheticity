@@ -5,7 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Product(models.Model):
-    farmer_id = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    farmer_id = models.ForeignKey(Farmer, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=250)
     description = models.TextField()
     price = models.IntegerField()
