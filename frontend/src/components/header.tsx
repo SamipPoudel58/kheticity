@@ -1,8 +1,8 @@
-import { UserLoginResponse } from '@/pages/login';
-import useUserStore from '@/store/user-store';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { UserLoginResponse } from "@/pages/login";
+import useUserStore from "@/store/user-store";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Header() {
   const userInfo = useUserStore((state) => state.loginDetail);
@@ -13,7 +13,7 @@ export default function Header() {
 
   const logoutHandler = () => {
     setLoginDetail({} as UserLoginResponse);
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -24,10 +24,10 @@ export default function Header() {
         </div>
         <div className="flex items-center justify-between text-primary-dark">
           <div className="mx-5 transition duration-300 ease-in-out hover:underline">
-            <a href="xyz.com">Products</a>
+            <a href="/">Home</a>
           </div>
           <div className="mx-5 transition duration-300 ease-in-out hover:underline">
-            <a href="xyz.com">Kheti Shikshya</a>
+            <a href="/kheti-shikshya">Kheti Shikshya</a>
           </div>
           {!userInfo.jwt ? (
             <>

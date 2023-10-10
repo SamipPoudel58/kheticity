@@ -26,9 +26,9 @@ export default function UrbanFarmingPage() {
           <img
             src="images/urban-farming-1.jpg"
             alt="Urban Farming"
-            className="mb-4 rounded-lg mx-0"
+            className="mb-4 rounded-lg"
           />
-          <p className="text-slate-500 text leading-6">
+          <p className="text-slate-500 text leading-6 max-w-[1200px] mx-auto">
             Urban farming offers numerous benefits, including access to fresh,
             organic produce and a sustainable way to contribute to a greener,
             healthier city. The good news is that you can start your own urban
