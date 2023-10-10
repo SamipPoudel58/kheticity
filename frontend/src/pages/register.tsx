@@ -4,6 +4,7 @@ import Header from '@/components/header';
 import { useRegisterUser } from '@/hooks/use-register-user';
 import useUserStore from '@/store/user-store';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export type UserRegisterPayload = {
   name: string;
@@ -24,6 +25,8 @@ export default function Register() {
   const { mutate: registerUser, isLoading, isError } = useRegisterUser();
   const setLoginDetail = useUserStore((state) => state.setLoginDetail);
 
+  const router = useRouter();
+
   const submitHandler = (data: UserRegisterPayload) => {
     const formData: any = new FormData();
     formData.append('name', data.name);
@@ -35,7 +38,8 @@ export default function Register() {
     );
     registerUser(formData, {
       onSuccess: (data) => {
-        console.log(data);
+        setLoginDetail(data.user);
+        router.push('/customer-dashboard');
       },
     });
   };
@@ -51,7 +55,7 @@ export default function Register() {
             </h2>
 
             <FormWrapper
-              showLoader={false}
+              showLoader={isLoading}
               className="space-y-4"
               onSubmit={submitHandler}
             >

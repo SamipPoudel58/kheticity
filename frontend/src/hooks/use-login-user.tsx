@@ -21,5 +21,7 @@ const loginUser = async (loginData: UserLoginPayload) => {
 };
 
 export const useLoginUser = () => {
-  return useMutation<UserLoginResponse, any, UserLoginPayload>(loginUser);
+  return useMutation<{ user: UserLoginResponse }, any, UserLoginPayload>(
+    loginUser
+  );
 };

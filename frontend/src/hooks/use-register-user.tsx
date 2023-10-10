@@ -18,5 +18,5 @@ const registerUser = async (loginData: any) => {
 };
 
 export const useRegisterUser = () => {
-  return useMutation<UserRegisterResponse, any, any>(registerUser);
+  return useMutation<{ user: UserRegisterResponse }, any, any>(registerUser);
 };

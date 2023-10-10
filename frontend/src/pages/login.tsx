@@ -28,7 +28,7 @@ export default function Login() {
   const submitHandler = (data: UserLoginPayload) => {
     loginUser(data, {
       onSuccess: (data) => {
-        setLoginDetail(data);
+        setLoginDetail(data.user);
         router.push('/customer-dashboard');
       },
     });
@@ -45,7 +45,7 @@ export default function Login() {
             </h2>
 
             <FormWrapper
-              showLoader={false}
+              showLoader={isLoading}
               className="space-y-4"
               onSubmit={submitHandler}
             >
