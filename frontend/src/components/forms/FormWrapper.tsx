@@ -20,7 +20,7 @@ const FormWrapper = ({
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)}>
         {children}
-        <div className="pt-1"></div>
+        <div className="pt-0"></div>
         <Button text={buttonText} showLoader={showLoader} />
       </form>
     </FormProvider>

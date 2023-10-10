@@ -4,6 +4,7 @@ import Header from '@/components/header';
 import { useLoginUser } from '@/hooks/use-login-user';
 import useUserStore from '@/store/user-store';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export type UserLoginPayload = {
   email: string;
@@ -11,19 +12,24 @@ export type UserLoginPayload = {
 };
 
 export type UserLoginResponse = {
-  _id: string;
+  id: number;
   name: string;
-  token: string;
+  email: string;
+  image: string;
+  jwt: string;
 };
 
 export default function Login() {
   const { mutate: loginUser, isLoading, isError } = useLoginUser();
   const setLoginDetail = useUserStore((state) => state.setLoginDetail);
 
+  const router = useRouter();
+
   const submitHandler = (data: UserLoginPayload) => {
     loginUser(data, {
       onSuccess: (data) => {
-        console.log(data);
+        setLoginDetail(data);
+        router.push('/customer-dashboard');
       },
     });
   };
@@ -31,8 +37,8 @@ export default function Login() {
   return (
     <div>
       <Header />
-      <div className="flex">
-        <div className="pl-20 pr-28 pt-8 w-1/2">
+      <div className="max-w-[1200px] mx-auto flex">
+        <div className="pr-28 pt-8 w-1/2">
           <div className="w-full">
             <h2 className="text-2xl font-bold mb-6 text-primary-dark">
               Sign In

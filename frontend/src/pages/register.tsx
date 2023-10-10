@@ -6,14 +6,18 @@ import useUserStore from '@/store/user-store';
 import Link from 'next/link';
 
 export type UserRegisterPayload = {
+  name: string;
   email: string;
   password: string;
+  image: any;
 };
 
 export type UserRegisterResponse = {
-  _id: string;
+  id: number;
   name: string;
-  token: string;
+  email: string;
+  image: string;
+  jwt: string;
 };
 
 export default function Register() {
@@ -21,7 +25,15 @@ export default function Register() {
   const setLoginDetail = useUserStore((state) => state.setLoginDetail);
 
   const submitHandler = (data: UserRegisterPayload) => {
-    registerUser(data, {
+    const formData: any = new FormData();
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append(
+      'image',
+      (document.getElementById('imageInput') as any).files[0]
+    );
+    registerUser(formData, {
       onSuccess: (data) => {
         console.log(data);
       },
@@ -31,8 +43,8 @@ export default function Register() {
   return (
     <main>
       <Header />
-      <div className="flex">
-        <div className="pl-20 pr-28 pt-8 w-1/2">
+      <div className="max-w-[1200px] mx-auto flex">
+        <div className="pr-28 pt-8 w-1/2">
           <div className="w-full">
             <h2 className="text-2xl font-bold mb-6 text-primary-dark">
               Create an account
@@ -46,6 +58,7 @@ export default function Register() {
               <Input type="text" name="name" label="Full Name" />
               <Input type="email" name="email" label="Email" />
               <Input type="password" name="password" label="Password" />
+              <input type="file" accept="image/*" id="imageInput" />
             </FormWrapper>
             <p className="mt-2 text-slate-500 text-center">
               Already have an account?{' '}

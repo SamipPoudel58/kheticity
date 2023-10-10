@@ -1,15 +1,12 @@
 import { UserRegisterPayload, UserRegisterResponse } from '@/pages/register';
 import { useMutation } from '@tanstack/react-query';
 
-const registerUser = async (loginData: UserRegisterPayload) => {
+const registerUser = async (loginData: any) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/users/register`,
     {
       method: 'POST',
-      body: JSON.stringify(loginData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: loginData,
     }
   );
 
@@ -21,7 +18,5 @@ const registerUser = async (loginData: UserRegisterPayload) => {
 };
 
 export const useRegisterUser = () => {
-  return useMutation<UserRegisterResponse, any, UserRegisterPayload>(
-    registerUser
-  );
+  return useMutation<UserRegisterResponse, any, any>(registerUser);
 };

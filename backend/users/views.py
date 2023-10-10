@@ -12,8 +12,22 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        user_instance = serializer.save()
+
+        payload = {
+            "id": user_instance.id,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            "iat": datetime.datetime.utcnow(),
+        }
+
+        token = jwt.encode(payload, "secret", algorithm="HS256")
+
+        response = Response()
+
+        response.set_cookie(key="jwt", value=token, httponly=True)
+        user_data = UserSerializer(user_instance).data
+        response.data = {"user": {**user_data, "jwt": token}}
+        return response
 
 
 class LoginView(APIView):
@@ -40,7 +54,8 @@ class LoginView(APIView):
         response = Response()
 
         response.set_cookie(key="jwt", value=token, httponly=True)
-        response.data = {"jwt": token}
+        user_serializer = UserSerializer(user)
+        response.data = {"user": {**user_serializer.data, "jwt": token}}
         return response
 
 
