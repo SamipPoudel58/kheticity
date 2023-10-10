@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",
+    "leaflet": "^1.9.4",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
+    "react-leaflet": "^4.2.1",
     "zustand": "^3.6.9"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

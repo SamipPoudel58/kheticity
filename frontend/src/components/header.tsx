@@ -41,7 +41,7 @@ export default function Header() {
           ) : (
             <div className="relative">
               <div
-                onClick={() => setShowDropdown(true)}
+                onClick={() => setShowDropdown((prev) => !prev)}
                 className="flex items-center gap-x-2 cursor-pointer"
               >
                 <img
@@ -53,9 +53,9 @@ export default function Header() {
               </div>
 
               {showDropdown && (
-                <div className="absolute space-y-1 z-10 rounded-md w-[200px] top-8 bg-white border border-offwhite-light p-3 left-1/2 text-sm -translate-x-1/2">
+                <div className="absolute space-y-1 z-10 rounded-md w-[200px] top-8 bg-white border border-offwhite-light p-2 left-1/2 text-sm -translate-x-1/2">
                   <Link
-                    href="/become-farmer"
+                    href="/register-farmer"
                     className="block text-center text-slate-500 hover:bg-primary hover:text-white p-2 rounded-md cursor-pointer"
                   >
                     Become a Farmer
